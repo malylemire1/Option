@@ -1,60 +1,60 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF04262A-A434-4F8F-B164-4F1D47D2542C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Option</RootNamespace>
-    <AssemblyName>Option</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>3.0.2</Version>
+    <Authors>Tom Jacques</Authors>
+    <PackageLicenseUrl>https://github.com/tejacques/Option/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/tejacques/Option/</PackageProjectUrl>
+    <Description>Binaries for the Option type.
+        Visit https://github.com/tejacques/Option for an overview and usage examples.</Description>
+    <Copyright>Copyright 2018</Copyright>
+    <PackageTags>Option Some None Maybe Functional</PackageTags>
+    <PackageReleaseNotes>Version Release Notes:
+
+	Version 3.0.2:
+         - Now target .NET Standard 1.0
+
+        Version 3.0.1:
+         - Fix target to .NET 3.5
+
+        Version 3.0.0:
+         - Breaking Changes:
+             - Option is now a struct (value type).
+             - Option now no longer has subclasses None and Some (since it is a struct)
+             - Namespace changed from System.Option to Functional.Option
+             - Implicit Conversion from Option&amp;lt;T&amp;gt; to &amp;lt;T&amp;gt; has been removed.
+         - Option now implements IEnumerable&amp;lt;T&amp;gt;
+         - ToOption() extension method added for regular and Nullable types.
+         - Pattern matching is now a function call in the form:
+            option.Match(
+                None: () =&gt; { /* Action when the Option is None */ },
+                Some: value =&gt; { /* Action when the Option is Some&amp;lt;T&amp;gt; */ });
+
+            var result = option.Match(
+                None: () =&gt; "None",
+                Some: value =&gt; value.ToString());</PackageReleaseNotes>
+    <AssemblyVersion>3.0.2.0</AssemblyVersion>
+    <FileVersion>3.0.2.0</FileVersion>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\Option.xml</DocumentationFile>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\Option.XML</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Option.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\Option.xml</DocumentationFile>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Compile Remove="packages\**" />
+    <EmbeddedResource Remove="packages\**" />
+    <None Remove="packages\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="EmptyArray.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Option.cs" />
-    <Compile Include="OptionPatternMatcher.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
